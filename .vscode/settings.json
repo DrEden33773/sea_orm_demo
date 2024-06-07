@@ -1,0 +1,22 @@
+{
+    "cSpell.words": [
+        "Arte",
+        "dotenvy",
+        "Iden",
+        "Jolie",
+        "Padaria"
+    ],
+    "sqltools.connections": [
+        {
+            "previewLimit": 50,
+            "server": "localhost",
+            "port": 5432,
+            "driver": "PostgreSQL",
+            "name": "sea_orm_demo",
+            "database": "sea_orm_demo_db",
+            "username": "sea_orm_demo",
+            "password": "bigdata123"
+        }
+    ],
+    "editor.tabSize": 2
+}
