@@ -1,5 +1,7 @@
 pub mod entities;
+pub mod handler;
 pub mod opt;
+pub mod router;
 pub mod test_info;
 
 use dotenvy::dotenv;
@@ -47,8 +49,8 @@ mod basic_crud {
 
     {
       let _lock = DB_MUTEX.lock().await;
-      insert_bakery_with_explicit_id(&mut db, BAKERY.id, BAKERY.name, BAKERY.profit_margin).await?;
-      insert_chef_with_explicit_id(&mut db, JOHN.id, JOHN.name, JOHN.bakery_id).await?;
+      insert_bakery_with_explicit_id(&db, BAKERY.id, BAKERY.name, BAKERY.profit_margin).await?;
+      insert_chef_with_explicit_id(&db, JOHN.id, JOHN.name, JOHN.bakery_id).await?;
     }
 
     {
@@ -106,7 +108,7 @@ mod basic_crud {
 
   #[tokio::test]
   async fn loader() -> Result<(), DbErr> {
-    let mut db = establish_connection().await?;
+    let db = establish_connection().await?;
 
     {
       let _lock = DB_MUTEX.lock().await;
@@ -123,14 +125,14 @@ mod basic_crud {
     {
       let _lock = DB_MUTEX.lock().await;
       insert_bakery_with_explicit_id(
-        &mut db,
+        &db,
         LA_BOULANGERIE.id,
         LA_BOULANGERIE.name,
         LA_BOULANGERIE.profit_margin,
       )
       .await?;
       insert_bakery_with_explicit_id(
-        &mut db,
+        &db,
         ARTE_BY_PADARIA.id,
         ARTE_BY_PADARIA.name,
         ARTE_BY_PADARIA.profit_margin,
@@ -139,11 +141,11 @@ mod basic_crud {
 
       let la_chefs = [JOLIE, CHARLES, MADELEINE, FREDERIC];
       for ChefInfo { id, name, .. } in &la_chefs {
-        insert_chef_with_explicit_id(&mut db, *id, name, LA_BOULANGERIE.id).await?;
+        insert_chef_with_explicit_id(&db, *id, name, LA_BOULANGERIE.id).await?;
       }
       let arte_chefs = [BRIAN, JERRY, KATE, SAMANTHA];
       for ChefInfo { id, name, .. } in &arte_chefs {
-        insert_chef_with_explicit_id(&mut db, *id, name, ARTE_BY_PADARIA.id).await?;
+        insert_chef_with_explicit_id(&db, *id, name, ARTE_BY_PADARIA.id).await?;
       }
     }
 

@@ -2,7 +2,7 @@ use crate::entities::{prelude::*, *};
 use sea_orm::*;
 
 pub async fn insert_bakery(
-  db: &mut DatabaseConnection,
+  db: &DatabaseConnection,
   name: &str,
   profit_margin: f64,
 ) -> Result<InsertResult<bakery::ActiveModel>, DbErr> {
@@ -16,7 +16,7 @@ pub async fn insert_bakery(
 }
 
 pub async fn insert_bakery_with_explicit_id(
-  db: &mut DatabaseConnection,
+  db: &DatabaseConnection,
   id: i32,
   name: &str,
   profit_margin: f64,
@@ -31,7 +31,7 @@ pub async fn insert_bakery_with_explicit_id(
 }
 
 pub async fn insert_chef(
-  db: &mut DatabaseConnection,
+  db: &DatabaseConnection,
   name: &str,
   bakery_id: i32,
 ) -> Result<InsertResult<chef::ActiveModel>, DbErr> {
@@ -45,7 +45,7 @@ pub async fn insert_chef(
 }
 
 pub async fn insert_chef_with_explicit_id(
-  db: &mut DatabaseConnection,
+  db: &DatabaseConnection,
   id: i32,
   name: &str,
   bakery_id: i32,
